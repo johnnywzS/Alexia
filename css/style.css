@@ -1,0 +1,609 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: #ffd9ec;
+    color: #fff;
+}
+
+/* PANTALLAS */
+
+.pantalla {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+.pantalla-activa {
+    display: flex;
+}
+
+/* PORTADA */
+
+#portada {
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffd6ec 0%, #ffeaf7 36%, #8c9cff 68%, #1f2b6c 100%);
+    background-size: 300% 300%;
+    animation: fondoPortada 14s ease infinite;
+    overflow: hidden;
+}
+
+.portada-contenido {
+    position: relative;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-52px);
+}
+
+.decor {
+    display: none;
+}
+
+/* IMAGEN ARRIBA */
+
+#garu{
+
+    width:300px;
+
+    margin-bottom:82px;
+
+    transform:translateY(-20px);
+
+    filter:drop-shadow(0 15px 18px rgba(0,0,0,.18));
+
+    animation:garuFlota 3s ease-in-out infinite;
+
+}
+
+/* CORAZONES */
+
+#lluviaCorazones {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.heart-rain {
+    position: absolute;
+    top: -40px;
+    pointer-events: none;
+    user-select: none;
+    animation: caerCorazon linear forwards;
+    filter: drop-shadow(0 6px 6px rgba(255, 120, 180, .18));
+}
+
+.heart-shape {
+    position: relative;
+    display: block;
+    width: 1em;
+    height: 1em;
+    background: rgba(255, 120, 184, .72);
+    transform: rotate(-45deg);
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: "";
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background: inherit;
+}
+
+.heart-shape::before {
+    top: -.5em;
+    left: 0;
+}
+
+.heart-shape::after {
+    top: 0;
+    left: .5em;
+}
+
+/* BOTÓN CORAZÓN */
+
+#btnComenzar {
+    position: relative;
+    width: 188px;
+    height: 188px;
+    border: none;
+    background: #ff79b8;
+    cursor: pointer;
+
+    transform: rotate(-45deg);
+
+    box-shadow:
+        0 16px 36px rgba(255, 93, 171, .45),
+        inset 0 0 24px rgba(255, 255, 255, .25);
+
+    transition: filter .25s ease;
+    animation: latido 1.65s ease-in-out infinite;
+}
+
+#btnComenzar::before,
+#btnComenzar::after {
+    content: "";
+    position: absolute;
+    width: 188px;
+    height: 188px;
+    background: #ff79b8;
+    border-radius: 50%;
+    box-shadow: inset 0 0 24px rgba(255, 255, 255, .18);
+}
+
+#btnComenzar::before {
+    top: -94px;
+    left: 0;
+}
+
+#btnComenzar::after {
+    left: 94px;
+    top: 0;
+}
+
+/* TEXTO CENTRADO */
+
+#btnComenzar span{
+
+    position:absolute;
+
+    left:53%;
+    top:43%;
+
+    width:230px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    transform:translate(-50%,-50%) rotate(45deg);
+
+    font-family:'Great Vibes',cursive;
+
+    font-size:48px;
+
+    color:#fff;
+
+    text-align:center;
+
+    white-space:nowrap;
+
+    pointer-events:none;
+
+    z-index:30;
+
+    text-shadow:0 4px 10px rgba(129,32,83,.25);
+
+}
+
+#btnComenzar:hover {
+    filter: brightness(1.08);
+}
+
+#btnComenzar:active {
+    animation: pulsoClick .5s ease forwards;
+}
+
+/* PRESENTACIÓN */
+
+#presentacion {
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.fondo-presentacion {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #ffd6ec, #ffeaf7, #f6d8ff, #ffd6ec);
+    background-size: 300% 300%;
+    animation: fondoPresentacion 16s ease infinite;
+    z-index: 0;
+}
+
+.marco-diapositiva {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+
+    padding: clamp(14px, 3vw, 34px);
+}
+
+.marco-diapositiva::before {
+    content: "";
+    position: absolute;
+
+    width: min(93vw, calc(92vh * 1.78));
+    height: min(92vh, calc(93vw / 1.78));
+
+    border-radius: 24px;
+    background: rgba(255, 255, 255, .28);
+
+    filter: blur(22px);
+    transform: translateY(16px);
+
+    z-index: -1;
+}
+
+#diapositiva {
+    max-width: 93vw;
+    max-height: 92vh;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 24px 60px rgba(119, 75, 100, .24),
+        0 0 0 8px rgba(255, 255, 255, .18);
+
+    object-fit: contain;
+    background: #fff;
+
+    opacity: 1;
+    transform: translateX(0) scale(1);
+
+    will-change: opacity, transform, filter;
+}
+
+/* ANIMACIONES DIAPOSITIVAS */
+
+.slide-enter-right {
+    animation: entraDerecha .65s cubic-bezier(.2, .9, .2, 1) both;
+}
+
+.slide-enter-left {
+    animation: entraIzquierda .65s cubic-bezier(.2, .9, .2, 1) both;
+}
+
+.slide-enter-first {
+    animation: entraRegalo .85s cubic-bezier(.18, .95, .25, 1) both;
+}
+
+/* FLECHAS */
+
+.flecha {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+
+    width: 68px;
+    height: 68px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .46);
+    backdrop-filter: blur(12px);
+
+    color: #875079;
+    font-size: 34px;
+
+    cursor: pointer;
+
+    box-shadow: 0 12px 28px rgba(137, 71, 113, .20);
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        opacity .25s ease;
+}
+
+.flecha:hover {
+    background: rgba(255, 255, 255, .75);
+}
+
+.flecha-izquierda {
+    left: 24px;
+    transform: translateY(-50%);
+}
+
+.flecha-derecha {
+    right: 24px;
+    transform: translateY(-50%);
+}
+
+.flecha-izquierda:hover,
+.flecha-derecha:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
+.flecha.oculta {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* MENSAJE FINAL */
+
+.mensaje-final {
+    position: absolute;
+    z-index: 6;
+    left: 50%;
+    bottom: 22px;
+
+    transform: translateX(-50%);
+
+    padding: 12px 22px;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, .50);
+    backdrop-filter: blur(14px);
+
+    box-shadow: 0 10px 24px rgba(142, 86, 120, .18);
+
+    color: #875079;
+    font-weight: 700;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mensaje-final.visible {
+    animation: mensajeAparece .9s ease forwards;
+}
+
+.confeti-final {
+    position: fixed;
+    top: -50px;
+    z-index: 999;
+    pointer-events: none;
+    animation: confetiCae 3.8s linear forwards;
+}
+
+/* KEYFRAMES */
+
+@keyframes fondoPortada {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes fondoPresentacion {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes garuFlota {
+    0%, 100% {
+        transform: translateY(-20px);
+    }
+
+    50% {
+        transform: translateY(-34px);
+    }
+}
+
+@keyframes latido {
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    14% {
+        transform: rotate(-45deg) scale(1.06);
+    }
+
+    28% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    42% {
+        transform: rotate(-45deg) scale(1.11);
+    }
+
+    58% {
+        transform: rotate(-45deg) scale(1);
+    }
+}
+
+@keyframes pulsoClick {
+    0% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1.18);
+    }
+
+    100% {
+        transform: rotate(-45deg) scale(.94);
+    }
+}
+
+@keyframes caerCorazon {
+    0% {
+        transform: translateY(-60px) rotate(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes entraRegalo {
+    0% {
+        opacity: 0;
+        transform: translateY(44px) scale(.86);
+        filter: blur(10px);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.018);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes entraDerecha {
+    0% {
+        opacity: 0;
+        transform: translateX(86px) scale(.94);
+        filter: blur(7px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateX(-6px) scale(1.01);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes entraIzquierda {
+    0% {
+        opacity: 0;
+        transform: translateX(-86px) scale(.94);
+        filter: blur(7px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateX(6px) scale(1.01);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes mensajeAparece {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes confetiCae {
+    0% {
+        transform: translateY(-70px) rotate(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(520deg);
+        opacity: 0;
+    }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .portada-contenido {
+        transform: translateY(-42px);
+    }
+
+    #garu {
+        width: 220px;
+        margin-bottom: 60px;
+    }
+
+    #btnComenzar {
+        width: 138px;
+        height: 138px;
+    }
+
+    #btnComenzar::before,
+    #btnComenzar::after {
+        width: 138px;
+        height: 138px;
+    }
+
+    #btnComenzar::before {
+        top: -69px;
+    }
+
+    #btnComenzar::after {
+        left: 69px;
+    }
+
+    #btnComenzar span {
+        font-size: 34px;
+        left:53%;
+        top:43%;
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .flecha {
+        width: 52px;
+        height: 52px;
+        font-size: 27px;
+    }
+
+    .flecha-izquierda {
+        left: 10px;
+    }
+
+    .flecha-derecha {
+        right: 10px;
+    }
+
+    #diapositiva {
+        max-width: 96vw;
+        max-height: 88vh;
+        border-radius: 16px;
+    }
+
+    .mensaje-final {
+        bottom: 12px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+}

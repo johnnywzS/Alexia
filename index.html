@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Alexia ❤️</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <audio id="musica" preload="auto" loop>
+    <source src="music/mac.mp3" type="audio/mpeg" />
+  </audio>
+
+  <section id="portada" class="pantalla pantalla-activa">
+    <div id="lluviaCorazones" aria-hidden="true"></div>
+    <div class="decor decor-1">♡</div>
+    <div class="decor decor-2">✦</div>
+    <div class="decor decor-3">♡</div>
+
+    <div class="portada-contenido">
+      <img src="img/hello.png" id="garu">
+      <button id="btnComenzar" aria-label="Comenzar presentación">
+        <span>Presióname</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="presentacion" class="pantalla">
+    <div class="fondo-presentacion" aria-hidden="true"></div>
+
+    <button id="btnAnterior" class="flecha flecha-izquierda" aria-label="Diapositiva anterior">❮</button>
+
+    <div class="marco-diapositiva">
+      <img id="diapositiva" src="img/1.png" alt="Diapositiva especial" />
+    </div>
+
+    <button id="btnSiguiente" class="flecha flecha-derecha" aria-label="Diapositiva siguiente">❯</button>
+
+    <div id="mensajeFinal" class="mensaje-final">
+      <p>Gracias por llegar hasta el final ❤️</p>
+    </div>
+  </section>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
