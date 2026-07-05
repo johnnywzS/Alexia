@@ -659,30 +659,65 @@ body {
         transform: translate(-50%, -50%) rotate(45deg);
     }
 
-    .flecha {
-        width: 52px;
-        height: 52px;
-        font-size: 27px;
+    .marco-diapositiva {
+        padding: 58px 12px 104px;
     }
 
-    .flecha-izquierda {
-        left: 10px;
-    }
-
-    .flecha-derecha {
-        right: 10px;
+    .marco-diapositiva::before {
+        width: min(94vw, calc((100vh - 162px) * 1.78));
+        width: min(94vw, calc((100svh - 162px) * 1.78));
+        height: min(calc(100vh - 162px), calc(94vw / 1.78));
+        height: min(calc(100svh - 162px), calc(94vw / 1.78));
+        border-radius: 18px;
     }
 
     #diapositiva {
-        max-width: 96vw;
-        max-height: 88vh;
+        max-width: 94vw;
+        max-height: calc(100vh - 162px);
+        max-height: calc(100svh - 162px);
         border-radius: 16px;
     }
 
+    .slide-enter-right,
+    .slide-enter-left {
+        animation-duration: .45s;
+    }
+
+    .slide-enter-first {
+        animation-duration: .6s;
+    }
+
+    .flecha {
+        top: auto;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+    }
+
+    .flecha-izquierda {
+        left: calc(50% - 68px);
+        transform: none;
+    }
+
+    .flecha-derecha {
+        right: calc(50% - 68px);
+        transform: none;
+    }
+
+    .flecha-izquierda:hover,
+    .flecha-derecha:hover {
+        transform: scale(1.06);
+    }
+
     .mensaje-final {
-        bottom: 12px;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 78px);
+        max-width: calc(100vw - 28px);
+        padding: 10px 16px;
         font-size: 13px;
-        white-space: nowrap;
+        line-height: 1.25;
+        text-align: center;
+        white-space: normal;
     }
 
     .btn-ir-comienzo {

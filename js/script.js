@@ -12,6 +12,7 @@ let actual=1;
 const total=7;
 let finalLanzado=false;
 let corazonesActivos=true;
+let transicionBloqueada=false;
 
 function actualizarFlechas(){
   btnAnterior.classList.toggle('oculta',actual===1);
@@ -68,14 +69,39 @@ btnComenzar.addEventListener('click',()=>{
 });
 
 btnSiguiente.addEventListener('click',()=>{
-  if(actual<total){actual++;mostrarDiapositiva('next')}
+  navegarDiapositiva('next');
 });
 
 btnAnterior.addEventListener('click',()=>{
-  if(actual>1){actual--;mostrarDiapositiva('prev')}
+  navegarDiapositiva('prev');
 });
 
 btnIrComienzo.addEventListener('click',volverPortada);
+
+function esVistaMovil(){
+  return window.matchMedia('(max-width: 768px)').matches;
+}
+
+function navegarDiapositiva(direccion){
+  if(esVistaMovil()&&transicionBloqueada)return;
+
+  if(direccion==='next'&&actual<total){
+    if(esVistaMovil())bloquearTransicion();
+    actual++;
+    mostrarDiapositiva('next');
+  }
+
+  if(direccion==='prev'&&actual>1){
+    if(esVistaMovil())bloquearTransicion();
+    actual--;
+    mostrarDiapositiva('prev');
+  }
+}
+
+function bloquearTransicion(){
+  transicionBloqueada=true;
+  setTimeout(()=>{transicionBloqueada=false},520);
+}
 
 function volverPortada(){
   btnIrComienzo.classList.remove('visible');
@@ -102,8 +128,8 @@ function volverPortada(){
 
 document.addEventListener('keydown',(e)=>{
   if(e.key==='Escape'&&presentacion.classList.contains('pantalla-activa'))volverPortada();
-  if(e.key==='ArrowRight'&&actual<total){actual++;mostrarDiapositiva('next')}
-  if(e.key==='ArrowLeft'&&actual>1){actual--;mostrarDiapositiva('prev')}
+  if(e.key==='ArrowRight')navegarDiapositiva('next');
+  if(e.key==='ArrowLeft')navegarDiapositiva('prev');
 });
 
 function crearCorazon(){
