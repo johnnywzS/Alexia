@@ -92,6 +92,23 @@ body {
     filter: drop-shadow(0 6px 6px rgba(255, 120, 180, .18));
 }
 
+#lluviaPresentacion {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.presentacion-heart {
+    opacity: .18;
+    filter: drop-shadow(0 5px 7px rgba(255, 137, 190, .12));
+}
+
+.presentacion-heart .heart-shape {
+    background: var(--heart-color, rgba(255, 120, 184, .38));
+}
+
 .heart-shape {
     position: relative;
     display: block;

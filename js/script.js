@@ -6,6 +6,7 @@ const imagen=document.getElementById('diapositiva');
 const btnAnterior=document.getElementById('btnAnterior');
 const btnSiguiente=document.getElementById('btnSiguiente');
 const lluvia=document.getElementById('lluviaCorazones');
+const lluviaPresentacion=document.getElementById('lluviaPresentacion');
 const mensajeFinal=document.getElementById('mensajeFinal');
 const btnIrComienzo=document.getElementById('btnIrComienzo');
 let actual=1;
@@ -30,6 +31,7 @@ function mostrarDiapositiva(direccion='first'){
   actualizarFlechas();
   mensajeFinal.classList.remove('visible');
   btnIrComienzo.classList.toggle('visible',actual===total);
+  if(actual===total)limpiarLluviaPresentacion();
   const clase=direccion==='prev'?'slide-enter-left':direccion==='next'?'slide-enter-right':'slide-enter-first';
   animarImagen(clase);
   if(actual===total&&!finalLanzado){
@@ -64,6 +66,7 @@ btnComenzar.addEventListener('click',()=>{
     presentacion.style.opacity='1';
     actual=1;
     finalLanzado=false;
+    limpiarLluviaPresentacion();
     mostrarDiapositiva('first');
   },780);
 });
@@ -105,6 +108,7 @@ function bloquearTransicion(){
 
 function volverPortada(){
   btnIrComienzo.classList.remove('visible');
+  limpiarLluviaPresentacion();
   presentacion.style.transition='opacity .45s ease, filter .45s ease';
   presentacion.style.opacity='0';
   presentacion.style.filter='blur(4px)';
@@ -148,6 +152,36 @@ function crearCorazon(){
   setTimeout(()=>h.remove(),10500);
 }
 setInterval(crearCorazon,1300);
+
+function crearCorazonSuave(){
+  if(!presentacion.classList.contains('pantalla-activa')||actual===total)return;
+
+  const h=document.createElement('div');
+  h.className='heart-rain presentacion-heart';
+
+  const heart=document.createElement('span');
+  heart.className='heart-shape';
+  heart.style.setProperty('--heart-color',Math.random()>.45?'rgba(255, 120, 184, .34)':'rgba(255, 255, 255, .38)');
+  h.appendChild(heart);
+
+  const cercaDelBorde=Math.random()<.72;
+  const izquierda=Math.random()<.5;
+  const x=cercaDelBorde
+    ? izquierda?4+Math.random()*18:78+Math.random()*18
+    : 24+Math.random()*52;
+
+  h.style.left=x+'vw';
+  h.style.fontSize=(10+Math.random()*8)+'px';
+  h.style.animationDuration=(8+Math.random()*5)+'s';
+  h.style.opacity=0.12+Math.random()*0.12;
+  lluviaPresentacion.appendChild(h);
+  setTimeout(()=>h.remove(),13500);
+}
+setInterval(crearCorazonSuave,2300);
+
+function limpiarLluviaPresentacion(){
+  lluviaPresentacion.replaceChildren();
+}
 
 function confetiFinal(){
   for(let i=0;i<45;i++){
