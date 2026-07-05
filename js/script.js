@@ -7,6 +7,7 @@ const btnAnterior=document.getElementById('btnAnterior');
 const btnSiguiente=document.getElementById('btnSiguiente');
 const lluvia=document.getElementById('lluviaCorazones');
 const mensajeFinal=document.getElementById('mensajeFinal');
+const btnIrComienzo=document.getElementById('btnIrComienzo');
 let actual=1;
 const total=7;
 let finalLanzado=false;
@@ -27,6 +28,7 @@ function mostrarDiapositiva(direccion='first'){
   imagen.src=`img/${actual}.png`;
   actualizarFlechas();
   mensajeFinal.classList.remove('visible');
+  btnIrComienzo.classList.toggle('visible',actual===total);
   const clase=direccion==='prev'?'slide-enter-left':direccion==='next'?'slide-enter-right':'slide-enter-first';
   animarImagen(clase);
   if(actual===total&&!finalLanzado){
@@ -73,7 +75,10 @@ btnAnterior.addEventListener('click',()=>{
   if(actual>1){actual--;mostrarDiapositiva('prev')}
 });
 
+btnIrComienzo.addEventListener('click',volverPortada);
+
 function volverPortada(){
+  btnIrComienzo.classList.remove('visible');
   presentacion.style.transition='opacity .45s ease, filter .45s ease';
   presentacion.style.opacity='0';
   presentacion.style.filter='blur(4px)';
