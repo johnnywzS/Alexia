@@ -14,6 +14,12 @@ const total=7;
 let finalLanzado=false;
 let corazonesActivos=true;
 let transicionBloqueada=false;
+let renderDiapositiva=0;
+const diapositivasPrecargadas=Array.from({length:total},(_,i)=>{
+  const img=new Image();
+  img.src=`img/${i+1}.png`;
+  return img;
+});
 
 function actualizarFlechas(){
   btnAnterior.classList.toggle('oculta',actual===1);
@@ -26,15 +32,22 @@ function animarImagen(clase){
   imagen.classList.add(clase);
 }
 
-function mostrarDiapositiva(direccion='first'){
-  imagen.src=`img/${actual}.png`;
+async function mostrarDiapositiva(direccion='first'){
+  const token=++renderDiapositiva;
+  const objetivo=actual;
+  const precargada=diapositivasPrecargadas[objetivo-1];
+  if(precargada?.decode){
+    await precargada.decode().catch(()=>{});
+  }
+  if(token!==renderDiapositiva)return;
+  imagen.src=precargada?.src||`img/${objetivo}.png`;
   actualizarFlechas();
   mensajeFinal.classList.remove('visible');
-  btnIrComienzo.classList.toggle('visible',actual===total);
-  if(actual===total)limpiarLluviaPresentacion();
+  btnIrComienzo.classList.toggle('visible',objetivo===total);
+  if(objetivo===total)limpiarLluviaPresentacion();
   const clase=direccion==='prev'?'slide-enter-left':direccion==='next'?'slide-enter-right':'slide-enter-first';
   animarImagen(clase);
-  if(actual===total&&!finalLanzado){
+  if(objetivo===total&&!finalLanzado){
     finalLanzado=true;
     setTimeout(()=>mensajeFinal.classList.add('visible'),900);
     setTimeout(confetiFinal,1100);
@@ -81,21 +94,17 @@ btnAnterior.addEventListener('click',()=>{
 
 btnIrComienzo.addEventListener('click',volverPortada);
 
-function esVistaMovil(){
-  return window.matchMedia('(max-width: 768px)').matches;
-}
-
 function navegarDiapositiva(direccion){
-  if(esVistaMovil()&&transicionBloqueada)return;
+  if(transicionBloqueada)return;
 
   if(direccion==='next'&&actual<total){
-    if(esVistaMovil())bloquearTransicion();
+    bloquearTransicion();
     actual++;
     mostrarDiapositiva('next');
   }
 
   if(direccion==='prev'&&actual>1){
-    if(esVistaMovil())bloquearTransicion();
+    bloquearTransicion();
     actual--;
     mostrarDiapositiva('prev');
   }
@@ -151,7 +160,7 @@ function crearCorazon(){
   lluvia.appendChild(h);
   setTimeout(()=>h.remove(),10500);
 }
-setInterval(crearCorazon,1300);
+setInterval(crearCorazon,700);
 
 function crearCorazonSuave(){
   if(!presentacion.classList.contains('pantalla-activa')||actual===total)return;
