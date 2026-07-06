@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+:root {
+    --app-height: 100vh;
+    --mobile-control-bottom: 86px;
+    --mobile-message-bottom: 150px;
+}
+
 html,
 body {
     width: 100%;
@@ -641,6 +647,16 @@ body {
 /* RESPONSIVE */
 
 @media (max-width: 768px) {
+    html,
+    body {
+        height: var(--app-height);
+    }
+
+    .pantalla {
+        inset: 0 0 auto 0;
+        height: var(--app-height);
+    }
+
     .portada-contenido {
         transform: translateY(-42px);
     }
@@ -677,21 +693,22 @@ body {
     }
 
     .marco-diapositiva {
-        padding: 58px 12px 104px;
+        height: var(--app-height);
+        padding: 58px 12px calc(var(--mobile-control-bottom) + 64px);
     }
 
     .marco-diapositiva::before {
         width: min(94vw, calc((100vh - 162px) * 1.78));
-        width: min(94vw, calc((100svh - 162px) * 1.78));
+        width: min(94vw, calc((var(--app-height) - var(--mobile-control-bottom) - 126px) * 1.78));
         height: min(calc(100vh - 162px), calc(94vw / 1.78));
-        height: min(calc(100svh - 162px), calc(94vw / 1.78));
+        height: min(calc(var(--app-height) - var(--mobile-control-bottom) - 126px), calc(94vw / 1.78));
         border-radius: 18px;
     }
 
     #diapositiva {
         max-width: 94vw;
         max-height: calc(100vh - 162px);
-        max-height: calc(100svh - 162px);
+        max-height: calc(var(--app-height) - var(--mobile-control-bottom) - 126px);
         border-radius: 16px;
     }
 
@@ -706,7 +723,7 @@ body {
 
     .flecha {
         top: auto;
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 46px);
+        bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-control-bottom));
         width: 50px;
         height: 50px;
         font-size: 26px;
@@ -728,7 +745,7 @@ body {
     }
 
     .mensaje-final {
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 106px);
+        bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-message-bottom));
         max-width: calc(100vw - 28px);
         padding: 10px 16px;
         font-size: 13px;

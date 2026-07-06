@@ -21,6 +21,28 @@ const diapositivasPrecargadas=Array.from({length:total},(_,i)=>{
   return img;
 });
 
+function actualizarViewportMovil(){
+  const viewport=window.visualViewport;
+  const alto=Math.round(viewport?.height||window.innerHeight);
+  const ancho=Math.round(viewport?.width||window.innerWidth);
+  const esHorizontal=ancho>alto;
+  const distanciaControles=esHorizontal
+    ? Math.max(58,Math.min(92,alto*.13))
+    : Math.max(86,Math.min(124,alto*.12));
+
+  document.documentElement.style.setProperty('--app-height',alto+'px');
+  document.documentElement.style.setProperty('--mobile-control-bottom',Math.round(distanciaControles)+'px');
+  document.documentElement.style.setProperty('--mobile-message-bottom',Math.round(distanciaControles+64)+'px');
+}
+
+actualizarViewportMovil();
+window.addEventListener('resize',actualizarViewportMovil);
+window.addEventListener('orientationchange',actualizarViewportMovil);
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',actualizarViewportMovil);
+  window.visualViewport.addEventListener('scroll',actualizarViewportMovil);
+}
+
 function actualizarFlechas(){
   btnAnterior.classList.toggle('oculta',actual===1);
   btnSiguiente.classList.toggle('oculta',actual===total);
